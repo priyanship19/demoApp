@@ -1,11 +1,12 @@
 import React from 'react';
 import {Text,View,TextInput} from 'react-native';
+import {responsiveFontSize,responsiveHeight,responsiveWidth} from 'react-native-responsive-dimensions';
 
 
 const Input = ({label,palceholder,onChangeText,value,secureTextEntry}) => {
 
     return (
-        <View style={{height:'20%',marginLeft:'5%'}}>
+        <View style={{height:responsiveHeight(10),marginLeft:responsiveWidth(5)}}>
             <Text style={Styles.textStyle}>{label}</Text>
                 <TextInput
                     secureTextEntry={secureTextEntry}
@@ -23,17 +24,22 @@ const Input = ({label,palceholder,onChangeText,value,secureTextEntry}) => {
 
 const Styles = {
     inputStyle:{
-        fontSize:20,
+        fontSize:responsiveFontSize(3),
         justifyContent:'center',
         color:'#fff',
-        flex:1
+        borderWidth:1,
+        borderColor:'#fff',
+        borderRadius:12,
+        flex:1,
+        width:responsiveWidth(90)
 
     },
     textStyle:{
 
         color:'#fff',
-        fontSize:20,
-        flex:1
+        fontSize:responsiveFontSize(3),
+        flex:1,
+        height:responsiveHeight(5)
 
     }
 

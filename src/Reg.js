@@ -2,13 +2,51 @@ import React,{Component} from 'react';
 import {Text,View,ImageBackground,TouchableOpacity,StyleSheet,Alert} from 'react-native';
 import {Input} from "./LoginCompnent/index";
 import axios from 'axios';
+import {RegisterAction} from '../Actions/registerAction'
+import {connect,bindActionCreators} from 'react-redux';
+import {responsiveFontSize,responsiveHeight,responsiveWidth} from 'react-native-responsive-dimensions';
 
 class Reg extends Component
 {
-    state={fullname:'',email:'',password:'',error:'',loading:false};
+
+    constructor(props)
+    {
+
+        super(props)
+        this.state = {
+
+            fullname:'',
+            email:'',
+            password:''
+
+        }
+    }
+
     onButtonClick() {
 
-        axios.post('http://localhost:3000/task/register', {
+
+        if(this.state.fullname===''&&this.state.email===''&&this.state.password==='')
+        {
+
+            Alert.alert("Please Fill All The Details");
+        }
+        else
+        {
+
+            this.props.RegisterAction(this.state.fullname,this.state.email,this.state.password).then((res) => {
+
+                console.log("Register Data" +  res);
+                Alert.alert("Register Your Data");
+
+            }).catch((err) =>{
+
+                console.log("Error Your Register Data",err);
+                Alert.alert(err);
+
+            })
+        }
+
+      /*  axios.post('http://localhost:3000/task/register', {
 
             fullname:this.state.fullname,
             email: this.state.email,
@@ -29,7 +67,7 @@ class Reg extends Component
             .catch((error) => {
 
                 console.log(error);
-            });
+            });*/
 
     }
 
@@ -68,15 +106,13 @@ class Reg extends Component
                         />
 
                         <TouchableOpacity style={{borderRadius: 3,
-                            marginTop: '2%',
-                            height:'10%',
-                            width:'50%',
+                            marginTop: responsiveHeight(3),
+                            height:responsiveHeight(5),
+                            width:responsiveWidth(50),
                             marginLeft:'25%',
                             justifyContent:'center',
                             backgroundColor:'#65C912'}}
-                                          onPress={() => {
-                                              this.onButtonClick()
-                                          }}>
+                                          onPress={() => {this.onButtonClick()}}>
 
                             <Text style={{textAlign:'center',
                                 fontSize:20,
@@ -105,5 +141,21 @@ const styles = StyleSheet.create({
 
     }
 });
+const mapStateToProps=state=>{
+    console.log(state);
+    return{
 
-export default Reg;
+        insertRegister:state.register.insertRegister
+    }
+
+};
+
+/*function mapDispatchToProps(dispatch){
+debugger;
+    return
+    {
+
+        bindActionCreators({RegisterAction},dispatch)
+    }
+}*/
+export default connect(mapStateToProps, {RegisterAction})(Reg);
