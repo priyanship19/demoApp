@@ -4,11 +4,11 @@ import axios from 'axios';
 import ImageSlider from './LoginCompnent/Slider';
 //import DrawerExample from '../src/LoginCompnent/Drawer';
 import { Akira } from 'react-native-textinput-effects';
-class Home extends React.Component{
+class Home extends Component{
     static navigationOptions=({navigation})=>({
         title: 'Home',
-        headerLeft:<View>
-            <TouchableOpacity onPress={() => navigation.navigate("DrawerOpen")}>
+        headerLeft:<View style={{height:'5%',width:'5%'}}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("DrawerOpen")}>
                 <Image
                     source={require('/Users/developer145/Documents/Priyanshi/ReactNative/demoApp/images/house.png')}/>
             </TouchableOpacity>

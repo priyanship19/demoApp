@@ -52,6 +52,7 @@ class Login extends Component{
         console.log("Status" + res);
         if(res == 200){
 
+               // AsyncStorage.setItem('token',nextProps.token);
             this.props.navigation.dispatch(NavigationActions.reset({
 
                 index:0,
@@ -209,7 +210,8 @@ const mapStateToProps=state=>{
     console.log(state);
     return {
 
-        status:state.register.status
+        status:state.register.status,
+        token:state.register.token
     }
 };
 
